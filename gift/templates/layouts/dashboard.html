@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block pageTitle %}{% endblock %}</title>
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style2.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css"/>
+    {% block pageStyles %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar-dark navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold"><h3>{{user.username}}</h3></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="{% if request.path == '/dashboard/' %} active {% endif %}">
+                        <a href="/dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</sapn></a>
+                    </li>
+                    <li class="{% if request.path == '/tree/' %} active {% endif %}">
+                        <a href="/tree"><i class="fa fa-tree"></i> <span class="nav-label">Gifting tree</sapn></a>
+                    </li>
+                    <li class="{% if request.path == '/profile/' %} active {% endif %}">
+                        <a href="/profile"><i class="fa fa-address-book"></i> <span class="nav-label">Profile</sapn></a>
+                    </li>
+                    <li class="{% if request.path == '/settings/' %} active {% endif %}">
+                        <a href="/change_password"><i class="fa fa-empire"></i> <span class="nav-label">Settings</sapn></a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-circle " href="#"><i
+                                class="fa fa-bars"></i> </a>
+                    </div>
+                    
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message"><h>{{user.username}}'s dashboard</h4></span>
+                        </li>
+                        
+                        <li>
+                            <a href="/logout">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="wrapper wrapper-content">
+
+                {% block content %}
+                {% endblock content %}
+            </div>
+
+            <div class="footer">
+                <div class="float-right">
+                    Gift <strong>Inc</strong>.
+                </div>
+                <div>
+                    <strong>Copyright </strong> wecomm.network &copy; 2020
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js'%}"></script>
+    <script src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js'%}"></script>
+    <script src="{% static 'js/plugins/slimscroll/jquery.slimscroll.min.js'%}"></script>
+
+
+    {% comment %} <script src="{% static 'js/plugins/flot/jquery.flot.time.js'%}"></script> {% endcomment %}
+
+    <!-- Peity -->
+    {% comment %} <script src="{% static 'js/plugins/peity/jquery.peity.min.js'%}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'js/demo/peity-demo.js'%}"></script> {% endcomment %}
+
+    <!-- Custom and plugin javascript -->
+    <script src="{% static 'js/inspinia.js'%}"></script>
+    {% comment %} <script src="{% static 'js/plugins/pace/pace.min.js' %}"></script> {% endcomment %}
+
+    <!-- jQuery UI -->
+    {% comment %} <script src="{% static 'js/plugins/jquery-ui/jquery-ui.min.js'%}"></script> {% endcomment %}
+    {% block pageJs %}
+    {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+{% extends "layouts/dashboard.html" %}
+{% load static %}
+
+{% block pageStyles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css"/>
+<style>
+.jstree-default .jstree-anchor {
+    line-height: 1.3rem;
+    height: 2.25rem;
+    font-size: 1.7rem;
+}
+</style>
+{%endblock%}
+
+{% block content %}
+
+<section class="timeline gray-section">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-title blue-bg">
+                    <span class=""></span>
+                    <h5>Total Gift</h5>
+                </div>
+                <div class="ibox-content">
+                    
+                    <h1 class="no-margins"><strong>
+                    {% for gift in GIFT %}
+                        {% if gift.gifting == 0 %}
+                            $0
+                        {% elif gift.gifting == 1 %}
+                            $1,000
+                        {% elif gift.gifting == 2 %}
+                            $1,500
+                        {% elif gift.gifting == 3 %}
+                            $2,000
+                        {% elif gift.gifting == 4 %}
+                            $2,500
+                            {% elif gift.gifting == 5 %}
+                            $3,000
+                        {% else %}
+                            $0      
+                        {% endif %}
+                    {% endfor %}
+                    </strong>
+                    </h1>
+                    
+                    
+                    <small></small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title blue-bg">
+                    <span class=""></span>
+                    <h5>Recieved gift</h5>
+                </div>
+                
+                    <div class="ibox-content">
+                    <h1 class="no-margins"><strong>
+                    {% for receive in RECEIVING %}
+                        {% if receiver == 0 %}
+                            $0
+                        {% elif receive.receiver == 1 %}
+                            $2,500
+                        {% elif receive.receiver == 2 %}
+                            $5,000
+                        {% elif receive.receiver == 3 %}
+                            $7,500
+                        {% elif receive.receiver == 4 %}
+                            $10,000
+                        {% elif receive.receiver == 5 %}
+                            $12,500
+                        {% else %}
+                            $0   
+                        {% endif %}
+ 
+                    {% endfor %}
+                    </strong>
+                    </h1>
+                    
+                    <small></small>
+                </div>
+            </div>
+        </div>
+
+
+        {% comment %} <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title blue-bg">
+                    <span class=""></span>
+                    <h5>Season</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">
+                    
+                    </h1>
+                    
+                    <small></small>
+                </div>
+            </div>
+        </div> {% endcomment %}
+
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title blue-bg">
+                    <span class=""></span>
+                    <h5>Entry gift</h5>
+                </div>
+                
+                    <div class="ibox-content">
+                    <h1 class="no-margins"><strong>
+                    {% for gift in GIFT %}
+                        {% if gift.gifting == 0 %}
+                            $0
+                        {% elif gift.gifting == 1 %}
+                            $1,000
+                        {% elif gift.gifting == 2 %}
+                            $1,000
+                        {% elif gift.gifting == 3 %}
+                            $1,000
+                        {% elif gift.gifting == 4 %}
+                            $1,000
+                            {% elif gift.gifting == 5 %}
+                            $1,000
+                        {% else %}
+                            $0      
+                        {% endif %}
+                    {% endfor %}
+                    </strong>
+                    </h1>
+                    
+                    <small></small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content">
+        <div class="wrapper wrapper-content">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td><h3>{{ user.id }}</h3></td>
+                            <td><h3>{{ user.first_name }}</h3></td>
+                            <td><h3>{{ user.phone }}</h3></td>
+                            <td><h3>{{ user.username }}</h3></td>
+                            <td><h3>{{ user.email }}</h3></td>
+                            <td><h3><strong>20%</strong></h3></td>
+                            <td><h3>{{ user.time }}</h3></td>
+                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+
+        <div class="ibox-content">
+            {% if ref_url %}
+            Your ref link is  <input id="ref_link" class="form-control form-control-sm" value="{{ref_url}}?next=/register" /> <button onClick="copyLink()" class="btn btn-sm">copy</button>
+            {% endif %}
+        </div>
+       
+    </div>
+
+</section>
+{% endblock content %}
+
+{% block pageJs %}
+    {% load static %}
+    
+    <script src="{% static 'js/plugins/pace/pace.min.js'%}"></script>
+
+    <!-- Peity -->
+    <script src="{% static 'js/jstree.min.js'%}"></script>
+
+    <!-- Mainly scripts -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js'%}"></script>
+    <script src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js'%}"></script>
+    <script src="{% static 'js/plugins/slimscroll/jquery.slimscroll.min.js'%}"></script>
+
+    
+    {% comment %} <script src="{% static 'js/plugins/flot/jquery.flot.time.js'%}"></script> {% endcomment %}
+
+    <!-- Peity -->
+    {% comment %} <script src="{% static 'js/plugins/peity/jquery.peity.min.js'%}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'js/demo/peity-demo.js'%}"></script> {% endcomment %}
+
+    <!-- Custom and plugin javascript -->
+    <script src="{% static 'js/inspinia.js'%}"></script>
+    {% comment %} <script src="{% static 'js/plugins/pace/pace.min.js' %}"></script> {% endcomment %}
+
+    <!-- jQuery UI -->
+    {% comment %} <script src="{% static 'js/plugins/jquery-ui/jquery-ui.min.js'%}"></script> {% endcomment %}
+    <script>
+            function copyLink(){
+                var reflink = document.getElementById('ref_link');
+                reflink.select();
+                document.execCommand('copy');
+                alert('Copied:'+reflink.value);
+            }
+        $(document).ready(function(){
+            var reflink = document.getElementById('ref_link');
+            var base_url = location.origin;
+            reflink.value = base_url+reflink.value;
+            
+            // Local script for demo purpose only
+            $('#lightVersion').click(function(event) {
+                event.preventDefault()
+                $('#ibox-content').removeClass('ibox-content');
+                $('#vertical-timeline').removeClass('dark-timeline');
+                $('#vertical-timeline').addClass('light-timeline');
+            });
+
+            $('#darkVersion').click(function(event) {
+                event.preventDefault()
+                $('#ibox-content').addClass('ibox-content');
+                $('#vertical-timeline').removeClass('light-timeline');
+                $('#vertical-timeline').addClass('dark-timeline');
+            });
+
+            $('#leftVersion').click(function(event) {
+                event.preventDefault()
+                $('#vertical-timeline').toggleClass('center-orientation');
+            });
+
+            $('#downline-tree').jstree();
+        });
+    </script>
+
+
+
+    
+
+
+
+{% endblock %}
